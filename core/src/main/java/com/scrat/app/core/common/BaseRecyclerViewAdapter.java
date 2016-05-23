@@ -32,6 +32,16 @@ public abstract class BaseRecyclerViewAdapter<Item, Holder extends BaseRecyclerV
         notifyDataSetChanged();
     }
 
+    public void addItem(Item item) {
+        mList.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(Item item, int location) {
+        mList.add(location, item);
+        notifyDataSetChanged();
+    }
+
     public void addList(List<Item> list) {
         if (list == null || list.size() == 0)
             return;

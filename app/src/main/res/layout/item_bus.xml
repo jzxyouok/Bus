@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/ic_pre_stop"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/taxi" />
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
     <ImageView
         android:id="@+id/ic_curr_stop"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/ic_pre_stop"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/taxi" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ic_pre_stop"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/ic_curr_stop"
-        android:text="珠江新城站"/>
+        android:gravity="center_vertical"
+        android:text="珠江新城站" />
 
+    <ImageView
+        android:id="@+id/ic_leaving_stop"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ic_curr_stop"
+        android:src="@drawable/taxi" />
 </RelativeLayout>

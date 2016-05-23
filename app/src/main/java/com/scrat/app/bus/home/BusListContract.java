@@ -11,9 +11,11 @@ import java.util.List;
 public interface BusListContract {
     interface Presenter {
         void init();
+        void changeOrder();
     }
 
     interface View extends BaseView {
+        void showBusName(String busName);
         void showBusStop(List<BusStopInfo> list);
         void onLoadDataError();
     }

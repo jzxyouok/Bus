@@ -39,11 +39,13 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="2dp"
         android:background="@color/lightgray"
-        android:text="共搜索出 10 个结果"/>
+        android:paddingTop="10dp"
+        android:text="共搜索出 0 个结果"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"

@@ -16,7 +16,6 @@ public class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mConvertView = itemView;
         mViews = new SparseArray<>();
-
     }
 
     protected <T extends View> T getView(int viewId) {
@@ -37,6 +36,29 @@ public class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
     public BaseRecyclerViewHolder setVisibility(int viewId, boolean visible) {
         View view = getView(viewId);
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return this;
+    }
+
+    public BaseRecyclerViewHolder setVisibility(int viewId, int visible) {
+        View view = getView(viewId);
+        view.setVisibility(visible);
+        return this;
+    }
+
+    public BaseRecyclerViewHolder setBackgroundColor(int viewId, int color) {
+        View view = getView(viewId);
+        view.setBackgroundColor(color);
+        return this;
+    }
+
+    public BaseRecyclerViewHolder setOnClickListener(View.OnClickListener l) {
+        mConvertView.setOnClickListener(l);
+        return this;
+    }
+
+    public BaseRecyclerViewHolder setOnClickListener(int viewId, View.OnClickListener l) {
+        View view = getView(viewId);
+        view.setOnClickListener(l);
         return this;
     }
 }

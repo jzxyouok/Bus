@@ -8,11 +8,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import java.io.File;
@@ -21,6 +19,8 @@ import java.io.File;
  * This provides methods to help Activities load their UI.
  */
 public class ActivityUtils {
+    private ActivityUtils() {
+    }
 
     /**
      * The {@code fragment} is added to the container view with id {@code frameId}. The operation is
@@ -31,13 +31,6 @@ public class ActivityUtils {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(frameId, fragment);
         transaction.commit();
-    }
-
-    public static void showSnackbar(View view, String content) {
-        if (view == null)
-            return;
-
-        Snackbar.make(view, content, Snackbar.LENGTH_LONG).show();
     }
 
     public static void hideKeyboard(Activity ctx) {

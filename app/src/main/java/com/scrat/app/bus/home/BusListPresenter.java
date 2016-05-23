@@ -26,8 +26,8 @@ public class BusListPresenter implements BusListContract.Presenter {
     private List<BusStopInfo> mBusStopInfoList;
     private BusListContract.View mView;
 
-    public BusListPresenter(BusListContract.View view) {
-        mBusId = "5410";
+    public BusListPresenter(BusListContract.View view, String busId) {
+        mBusId = busId;
         mView = view;
         mBusStopInfoList = new ArrayList<>();
     }
@@ -48,13 +48,20 @@ public class BusListPresenter implements BusListContract.Presenter {
         }
     }
 
+    @Override
+    public void changeOrder() {
+        mDefaultOrder = !mDefaultOrder;
+        mBusStopInfoList.clear();
+        init();
+    }
+
     private void getBusStopName(final OnLoadBusStopNameListener listener) {
         NetApi.getBusStopName(mBusId, mDefaultOrder, new ResponseCallback<GetBusStopInfoResponse>() {
             @Override
             protected void onRequestSuccess(GetBusStopInfoResponse getBusStopInfoResponse) {
                 L.e("%s", getBusStopInfoResponse);
                 List<BusStopInfo> busStopInfoList = getBusStopInfoResponse.getBusStopInfoList();
-
+                mView.showBusName(getBusStopInfoResponse.getBusName());
                 if (listener == null)
                     return;
 
@@ -70,6 +77,7 @@ public class BusListPresenter implements BusListContract.Presenter {
             @Override
             protected void onRequestFailure(IOException e) {
                 e.printStackTrace();
+                mView.onLoadDataError();
             }
         });
     }
@@ -106,6 +114,7 @@ public class BusListPresenter implements BusListContract.Presenter {
             @Override
             protected void onRequestFailure(IOException e) {
                 e.printStackTrace();
+                mView.onLoadDataError();
             }
         });
     }

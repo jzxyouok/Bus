@@ -13,13 +13,13 @@ public class LocationInfoItem {
         return bl != null && bl.size() > 0;
     }
 
-    public boolean isArrivaling() {
+    public boolean isLeaving() {
         return bbl != null && bbl.size() > 0;
     }
 
     @Override
     public String toString() {
-        return "GetLocationInfoResponse{" +
+        return "LocationInfoItem{" +
                 "bl=" + bl +
                 ", bbl=" + bbl +
                 '}';

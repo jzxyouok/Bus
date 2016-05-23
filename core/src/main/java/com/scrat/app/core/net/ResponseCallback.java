@@ -1,6 +1,7 @@
 package com.scrat.app.core.net;
 
-import com.scrat.app.est.utils.ActivityUtils;
+import com.scrat.app.core.utils.ActivityUtils;
+import com.scrat.app.core.utils.L;
 
 import java.io.IOException;
 
@@ -12,11 +13,11 @@ import okhttp3.Response;
  * Created by yixuanxuan on 16/4/29.
  */
 public abstract class ResponseCallback<T> implements Callback {
-    protected abstract void onRequestFailure(IOException e);
     protected abstract void onRequestSuccess(T t);
-    protected abstract void onHttpError();
 
     protected abstract T parseResponse(Response response);
+
+    protected abstract void onRequestFailure(IOException e);
 
     @Override
     public void onFailure(final Call call, final IOException e) {
@@ -30,23 +31,22 @@ public abstract class ResponseCallback<T> implements Callback {
 
     @Override
     public void onResponse(final Call call, final Response response) throws IOException {
-        if (response.isSuccessful()) {
-            final T t = parseResponse(response);
-            ActivityUtils.getMainHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    onRequestSuccess(t);
-                }
-            });
-        } else {
-            ActivityUtils.getMainHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    onHttpError();
-                }
-            });
-        }
+        L.d("code %s", response.code());
 
+        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+        T t = parseResponse(response);
+
+        notifyResponseSuccess(t);
+    }
+
+    private void notifyResponseSuccess(final T t) {
+        ActivityUtils.getMainHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                onRequestSuccess(t);
+            }
+        });
     }
 
 }

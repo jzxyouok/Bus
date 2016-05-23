@@ -15,8 +15,11 @@ public class BusInfo {
         return n;
     }
 
-    @Deprecated
-    public void setBusName(String n) {
-        this.n = n;
+    @Override
+    public String toString() {
+        return "BusInfo{" +
+                "i='" + i + '\'' +
+                ", n='" + n + '\'' +
+                '}';
     }
 }

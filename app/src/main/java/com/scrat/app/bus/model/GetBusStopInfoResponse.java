@@ -13,6 +13,10 @@ public class GetBusStopInfoResponse {
     private String lt;
     private List<BusStopInfo> l;
 
+    public String getBusName() {
+        return rn;
+    }
+
     public List<BusStopInfo> getBusStopInfoList() {
         return l;
     }

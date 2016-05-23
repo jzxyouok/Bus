@@ -19,16 +19,25 @@ import okhttp3.Response;
 public abstract class DownloadCallback implements Callback {
     private static final int sDefaultReadSize = 1024;
 
-    protected abstract String getTargetFilePath();
+    protected abstract String buildTargetFilePath();
 
     protected abstract void onRequestFailure(IOException e);
 
-    protected void onDownloadSuccess() {
+    protected abstract void onDownloadSuccess();
+
+    protected void onProgress(long totalReadSize, long totalSize) {
         // do nothing
     }
 
-    protected void onProgress(int process, int total) {
-        // do nothing
+    /**
+     * 是否需要回掉进度
+     * @param totalReadSize 当前已经读取的大小
+     * @param totalSize 网络文件大小
+     * @param bytesRead 本次读取的大小
+     * @return true: 回掉进度. false(default): 不回调进度.
+     */
+    protected boolean shouldNotifyProgress(long totalReadSize, long totalSize, int bytesRead) {
+        return false;
     }
 
     @Override
@@ -45,19 +54,21 @@ public abstract class DownloadCallback implements Callback {
     public void onResponse(final Call call, final Response response) throws IOException {
         if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
+        byte[] buffer = new byte[sDefaultReadSize];
         final InputStream in = response.body().byteStream();
         OutputStream os = null;
         try {
-            int total = getContentLength(response);
-            File file = new File(getTargetFilePath());
-            byte[] buffer = new byte[sDefaultReadSize];
+            long total = getContentLength(response);
+            File file = new File(buildTargetFilePath());
             int bytesRead;
-            int totalRead = 0;
+            long totalRead = 0L;
             os = new FileOutputStream(file);
             while ((bytesRead = in.read(buffer, 0, sDefaultReadSize)) != -1) {
                 os.write(buffer, 0, bytesRead);
                 totalRead += bytesRead;
-                notifyProgress(totalRead, total);
+                if (shouldNotifyProgress(totalRead, total, bytesRead)) {
+                    notifyProgress(totalRead, total);
+                }
             }
 
             notifyDownloadSuccess();
@@ -68,16 +79,16 @@ public abstract class DownloadCallback implements Callback {
 
     }
 
-    private int getContentLength(Response response) {
+    private long getContentLength(Response response) {
         String length = response.header("Content-Length");
-        return Integer.parseInt(length);
+        return Long.parseLong(length);
     }
 
-    private void notifyProgress(final int progress, final int total) {
+    private void notifyProgress(final long totalReadSzie, final long totalSize) {
         ActivityUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
-                onProgress(progress, total);
+                onProgress(totalReadSzie, totalSize);
             }
         });
     }

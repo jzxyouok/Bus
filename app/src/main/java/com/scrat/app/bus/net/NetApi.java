@@ -20,17 +20,22 @@ public class NetApi {
     private static final String sUrlGetBusStopName
             = "http://wxbus.gzyyjt.net/wei-bus-app/routeStation/getByRouteAndDirection/%s/%s";
     private static final String sUrlGetBusStopLocation
-            = "http://wei-bus-app/runBus/getByRouteAndDirection/%s/%s";
+            = "http://wxbus.gzyyjt.net/wei-bus-app/runBus/getByRouteAndDirection/%s/%s";
     private static final String sHeaders
             = "http://wxbus.gzyyjt.net/wei-bus-app/route/monitor/%s/%s";
+    private static final String sBusInfoHeaders
+            = "http://wxbus.gzyyjt.net/wei-bus-app/route?nickName=&gzhUser=&openId=o8g--uBNCx9eQyvcoDaSPxvstnME";
 
 
     public static void getBusInfo(String busNo, Callback responseCallback) {
 
         Map<String, String> params = new OkHttpHelper.ParamsBuilder().put(sKeyName, busNo).build();
 
+        Map<String, String> headers = new HashMap<>();
+        headers.put(sKeyReferer, sBusInfoHeaders);
+
         try {
-            OkHttpHelper.getInstance().post(sUrlGetBusName, params, responseCallback);
+            OkHttpHelper.getInstance().post(sUrlGetBusName, params, headers, responseCallback);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             responseCallback.onFailure(null, e);

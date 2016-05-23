@@ -2,9 +2,8 @@ package com.scrat.app.core.net;
 
 import android.text.TextUtils;
 
-import com.scrat.app.est.EstApp;
-import com.scrat.app.est.utils.L;
-import com.scrat.app.est.utils.NetUtil;
+import com.scrat.app.core.utils.L;
+import com.scrat.app.core.utils.NetUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class OkHttpHelper {
         client = new OkHttpClient();
     }
 
-    private Request buildPostFormRequest(String url, Map<String, String> params)
+    private Request buildPostFormRequest(String url, Map<String, String> headers, Map<String, String> params)
             throws UnsupportedEncodingException {
 
         FormBody.Builder builder = new FormBody.Builder();
@@ -57,6 +56,11 @@ public class OkHttpHelper {
 
         RequestBody requestBody = builder.build();
         Request.Builder reqBuilder = new Request.Builder();
+        if (!isEmpty(headers)) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                reqBuilder.header(entry.getKey(), entry.getValue());
+            }
+        }
         reqBuilder.url(url).post(requestBody);
 
         return reqBuilder.build();
@@ -145,8 +149,7 @@ public class OkHttpHelper {
                 e.printStackTrace();
                 int totalRequestTimes = i + 1;
                 L.d("retry %s", totalRequestTimes);
-                if (!NetUtil.isNetworkAvailable(EstApp.getContext())
-                        || totalRequestTimes == maxRetryTimes) {
+                if (!NetUtil.isNetworkAvailable() || totalRequestTimes == maxRetryTimes) {
                     throw e;
                 }
             }
@@ -155,11 +158,10 @@ public class OkHttpHelper {
         throw new IOException("retry fail");
     }
 
-
     public String post(String url, Map<String, String> params) throws IOException {
         L.d("url %s", url);
         L.d("post %s", params);
-        Request request = buildPostFormRequest(url, params);
+        Request request = buildPostFormRequest(url, null, params);
         Response response = getResponse(request);
         L.d("%s", response.code());
         String body = getResponseBody(response);
@@ -171,11 +173,11 @@ public class OkHttpHelper {
         return post(url, null);
     }
 
-    public void post(String url, Map<String, String> params, Callback responseCallback)
+    public void post(String url, Map<String, String> params, Map<String, String> headers, Callback responseCallback)
             throws UnsupportedEncodingException {
         L.d("url %s", url);
         L.d("post %s", params);
-        Request request = buildPostFormRequest(url, params);
+        Request request = buildPostFormRequest(url, headers, params);
         client.newCall(request).enqueue(responseCallback);
     }
 
@@ -297,11 +299,15 @@ public class OkHttpHelper {
         client.newCall(request).enqueue(responseCallback);
     }
 
-    public void download(String url, SaveFileResponseCallback callback) {
+    public void download(String url, DownloadCallback callback) {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         client.newCall(request).enqueue(callback);
+    }
+
+    public OkHttpClient getClient() {
+        return client;
     }
 }
