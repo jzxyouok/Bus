@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.scrat.app.core.CommonContext;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by yixuanxuan on 16/4/19.
@@ -20,5 +21,7 @@ public class BusApp extends Application {
         super.onCreate();
         mContext = this;
         CommonContext.initContext(mContext);
+
+        LeakCanary.install(this);
     }
 }

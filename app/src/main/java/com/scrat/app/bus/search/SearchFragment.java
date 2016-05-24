@@ -119,10 +119,11 @@ public class SearchFragment extends BaseFragment
         protected void initView(final BaseRecyclerViewHolder holder, int position, BusInfo busInfo) {
             holder.setText(R.id.tv_name, busInfo.getBusName());
             final String busId = busInfo.getBusId();
+            final String busName = busInfo.getBusName();
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BusListActivity.show((SearchActivity)mContext, busId);
+                    BusListActivity.show((SearchActivity)mContext, busId, busName);
                 }
             });
         }

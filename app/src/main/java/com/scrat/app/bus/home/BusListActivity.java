@@ -1,12 +1,10 @@
 package com.scrat.app.bus.home;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
 
 import com.scrat.app.bus.R;
 import com.scrat.app.core.utils.ActivityUtils;
@@ -18,12 +16,13 @@ public class BusListActivity extends AppCompatActivity {
     private BusListFragment mFragment;
 
     private static final String sExtraKeyBusId = "bus_id";
+    private static final String sExtraKeyBusName = "bus_name";
 
-    public static void show(Activity ctx, String busId) {
+    public static void show(Activity ctx, String busId, String busName) {
         Intent i = new Intent(ctx, BusListActivity.class);
         i.putExtra(sExtraKeyBusId, busId);
+        i.putExtra(sExtraKeyBusName, busName);
         ctx.startActivity(i);
-        ctx.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
@@ -32,10 +31,10 @@ public class BusListActivity extends AppCompatActivity {
 
         setContentView(R.layout.act_base);
 
-        String busId = getIntent().getStringExtra(sExtraKeyBusId);
-
         if (mFragment == null) {
-            mFragment = BusListFragment.newInstance(busId);
+            String busId = getIntent().getStringExtra(sExtraKeyBusId);
+            String busName = getIntent().getStringExtra(sExtraKeyBusName);
+            mFragment = BusListFragment.newInstance(busId, busName);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mFragment, R.id.contentFrame);
         }

@@ -61,7 +61,6 @@ public class BusListPresenter implements BusListContract.Presenter {
             protected void onRequestSuccess(GetBusStopInfoResponse getBusStopInfoResponse) {
                 L.e("%s", getBusStopInfoResponse);
                 List<BusStopInfo> busStopInfoList = getBusStopInfoResponse.getBusStopInfoList();
-                mView.showBusName(getBusStopInfoResponse.getBusName());
                 if (listener == null)
                     return;
 

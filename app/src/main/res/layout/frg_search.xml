@@ -32,8 +32,8 @@
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:src="@drawable/ic_search_black" />
 
     </LinearLayout>

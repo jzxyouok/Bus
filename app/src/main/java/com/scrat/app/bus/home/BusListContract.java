@@ -15,7 +15,6 @@ public interface BusListContract {
     }
 
     interface View extends BaseView {
-        void showBusName(String busName);
         void showBusStop(List<BusStopInfo> list);
         void onLoadDataError();
     }

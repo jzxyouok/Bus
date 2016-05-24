@@ -23,16 +23,19 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
     private BusListContract.Presenter mPresenter;
     private BusListAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private TextView mBusName;
+    private String mBusName;
     private ImageView mOrderIv;
     private ImageView mBackIv;
+    private ImageView mSearchIv;
 
-    private static final String sKey = "bus_id";
+    private static final String sKeyId = "bus_id";
+    private static final String sKeyBusName = "bus_name";
 
-    public static BusListFragment newInstance(String busId) {
+    public static BusListFragment newInstance(String busId, String busName) {
         BusListFragment fragment = new BusListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(sKey, busId);
+        bundle.putString(sKeyId, busId);
+        bundle.putString(sKeyBusName, busName);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -40,7 +43,8 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String busId = getArguments().getString(sKey);
+        String busId = getArguments().getString(sKeyId);
+        mBusName = getArguments().getString(sKeyBusName);
         mPresenter = new BusListPresenter(this, busId);
         mAdapter = new BusListAdapter();
     }
@@ -49,16 +53,18 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frg_home, container, false);
-        mBusName = (TextView) root.findViewById(R.id.tv_bus_name);
+        TextView busNameTv = (TextView) root.findViewById(R.id.tv_bus_name);
+        busNameTv.setText(mBusName);
         mOrderIv = (ImageView) root.findViewById(R.id.iv_order);
         mOrderIv.setOnClickListener(this);
         mBackIv = (ImageView) root.findViewById(R.id.iv_back);
         mBackIv.setOnClickListener(this);
+        mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
+        mSearchIv.setOnClickListener(this);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.rv_list);
         final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-
 
         return root;
     }
@@ -69,15 +75,10 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
         mPresenter.init();
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.activity_bus_list_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
     @Override
-    public void showBusName(String busName) {
-        mBusName.setText(busName);
+    public void onDestroy() {
+        mPresenter = null;
+        super.onDestroy();
     }
 
     @Override
@@ -90,20 +91,17 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
         showMsg("获取数据失败");
     }
 
-    public void refreshLocation() {
-        mPresenter.init();
-    }
-
     @Override
     public void onClick(View v) {
-        if (v == mBackIv) {
+        if (v == mBackIv || v == mSearchIv) {
             getActivity().finish();
-            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             return;
         }
 
         if (v == mOrderIv) {
             mPresenter.changeOrder();
+            return;
         }
+
     }
 }
