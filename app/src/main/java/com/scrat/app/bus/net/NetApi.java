@@ -14,6 +14,7 @@ import okhttp3.Callback;
 public class NetApi {
     private static final String sKeyName = "name";
     private static final String sKeyReferer = "Referer";
+    private static final String sKeyCookie = "Cookie";
 
     private static final String sUrlGetBusName
             = "http://wxbus.gzyyjt.net/wei-bus-app/route/getByName";
@@ -24,8 +25,9 @@ public class NetApi {
     private static final String sHeaders
             = "http://wxbus.gzyyjt.net/wei-bus-app/route/monitor/%s/%s";
     private static final String sBusInfoHeaders
-            = "http://wxbus.gzyyjt.net/wei-bus-app/route?nickName=&gzhUser=&openId=o8g--uBNCx9eQyvcoDaSPxvstnME";
-
+            = "http://wxbus.gzyyjt.net/wei-bus-app/route?openId=ouz9MsyNIpeYEMJEhI7E-peH3oOk";
+    private static final String sCookie =
+            "realOpenId=ouz9MsyNIpeYEMJEhI7E-peH3oOk; openId=ouz9MsyNIpeYEMJEhI7E-peH3oOk";
 
     public static void getBusInfo(String busNo, Callback responseCallback) {
 
@@ -33,6 +35,7 @@ public class NetApi {
 
         Map<String, String> headers = new HashMap<>();
         headers.put(sKeyReferer, sBusInfoHeaders);
+        headers.put(sKeyCookie, sCookie);
 
         try {
             OkHttpHelper.getInstance().post(sUrlGetBusName, params, headers, responseCallback);
@@ -51,6 +54,7 @@ public class NetApi {
         String referer = String.format(sHeaders, busId, order);
         Map<String, String> headers = new HashMap<>();
         headers.put(sKeyReferer, referer);
+        headers.put(sKeyCookie, sCookie);
 
         try {
             OkHttpHelper.getInstance().get(url, null, headers, responseCallback);
@@ -69,6 +73,7 @@ public class NetApi {
         String referer = String.format(sHeaders, busId, order);
         Map<String, String> headers = new HashMap<>();
         headers.put(sKeyReferer, referer);
+        headers.put(sKeyCookie, sCookie);
 
         try {
             OkHttpHelper.getInstance().get(url, null, headers, responseCallback);
