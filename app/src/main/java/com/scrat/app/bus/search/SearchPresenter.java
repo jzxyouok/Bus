@@ -5,10 +5,9 @@ import com.scrat.app.bus.model.BusInfo;
 import com.scrat.app.bus.net.NetApi;
 import com.scrat.app.core.net.GsonParser;
 import com.scrat.app.core.net.ResponseCallback;
-import com.scrat.app.core.utils.L;
+import com.scrat.app.core.utils.NetUtil;
 import com.scrat.app.core.utils.Utils;
 
-import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Response;
@@ -24,6 +23,11 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void search(String content) {
+        if (!NetUtil.isNetworkAvailable()) {
+            mView.onNoNetworkError();
+            return;
+        }
+
         NetApi.getBusInfo(content, new ResponseCallback<List<BusInfo>>() {
             @Override
             protected void onRequestSuccess(List<BusInfo> busInfos) {
@@ -43,7 +47,7 @@ public class SearchPresenter implements SearchContract.Presenter {
             }
 
             @Override
-            protected void onRequestFailure(IOException e) {
+            protected void onRequestFailure(Exception e) {
                 e.printStackTrace();
                 mView.onSearchError();
             }

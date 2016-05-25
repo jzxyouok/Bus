@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.scrat.app.bus.R;
 import com.scrat.app.core.common.BaseView;
 
 /**
@@ -32,7 +33,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void onNoNetworkError() {
-        showMsg("当前没有可用网络, 请连接网络后重试");
+        showMsg(getString(R.string.no_net_error));
     }
 
     @Override

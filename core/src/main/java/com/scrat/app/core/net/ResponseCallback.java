@@ -17,7 +17,7 @@ public abstract class ResponseCallback<T> implements Callback {
 
     protected abstract T parseResponse(Response response);
 
-    protected abstract void onRequestFailure(IOException e);
+    protected abstract void onRequestFailure(Exception e);
 
     @Override
     public void onFailure(final Call call, final IOException e) {
@@ -35,7 +35,13 @@ public abstract class ResponseCallback<T> implements Callback {
 
         if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-        T t = parseResponse(response);
+        T t;
+        try {
+            t = parseResponse(response);
+        } catch (Exception e) {
+            onRequestFailure(e);
+            return;
+        }
 
         notifyResponseSuccess(t);
     }

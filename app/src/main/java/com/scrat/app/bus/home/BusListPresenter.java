@@ -9,9 +9,9 @@ import com.scrat.app.bus.net.NetApi;
 import com.scrat.app.core.net.GsonParser;
 import com.scrat.app.core.net.ResponseCallback;
 import com.scrat.app.core.utils.L;
+import com.scrat.app.core.utils.NetUtil;
 import com.scrat.app.core.utils.Utils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +34,11 @@ public class BusListPresenter implements BusListContract.Presenter {
 
     @Override
     public void init() {
+        if (!NetUtil.isNetworkAvailable()) {
+            mView.onNoNetworkError();
+            return;
+        }
+
         if (!Utils.isEmpty(mBusStopInfoList)) {
             loadLocation();
         } else {
@@ -74,7 +79,7 @@ public class BusListPresenter implements BusListContract.Presenter {
             }
 
             @Override
-            protected void onRequestFailure(IOException e) {
+            protected void onRequestFailure(Exception e) {
                 e.printStackTrace();
                 mView.onLoadDataError();
             }
@@ -111,7 +116,7 @@ public class BusListPresenter implements BusListContract.Presenter {
             }
 
             @Override
-            protected void onRequestFailure(IOException e) {
+            protected void onRequestFailure(Exception e) {
                 e.printStackTrace();
                 mView.onLoadDataError();
             }
