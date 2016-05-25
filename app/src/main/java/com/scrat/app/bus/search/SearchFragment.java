@@ -1,6 +1,6 @@
 package com.scrat.app.bus.search;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,8 +37,7 @@ public class SearchFragment extends BaseFragment
     private ImageView mBackIv;
     private ImageView mSearchIv;
     private EditText mSearchContentEt;
-    private RecyclerView mResultListRv;
-    private BaseRecyclerViewAdapter mAdapter;
+    private MyAdapter mAdapter;
     private TextView mResultTv;
 
     @Nullable
@@ -52,12 +51,17 @@ public class SearchFragment extends BaseFragment
         mBackIv = (ImageView) root.findViewById(R.id.iv_back);
         mSearchContentEt = (EditText) root.findViewById(R.id.et_search);
         mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
-        mResultListRv = (RecyclerView) root.findViewById(R.id.rv_list);
+        RecyclerView resultListRv = (RecyclerView) root.findViewById(R.id.rv_list);
         final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        mResultListRv.setLayoutManager(manager);
-        mAdapter = new MyAdapter(getActivity());
-        mResultListRv.setAdapter(mAdapter);
-
+        resultListRv.setLayoutManager(manager);
+        final Activity activity = getActivity();
+        mAdapter = new MyAdapter(new OnItemClickListener() {
+            @Override
+            public void onItemSelected(String busId, String busName) {
+                BusListActivity.show(activity, busId, busName);
+            }
+        });
+        resultListRv.setAdapter(mAdapter);
 
         mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
@@ -83,7 +87,6 @@ public class SearchFragment extends BaseFragment
             ActivityUtils.hideKeyboard(getActivity());
             String content = mSearchContentEt.getText().toString();
             mPresenter.search(content);
-            return;
         }
     }
 
@@ -94,25 +97,30 @@ public class SearchFragment extends BaseFragment
 
     @Override
     public void showNoResult() {
-        setResultText("没有找到数据");
+        setResultText(getString(R.string.no_result));
     }
 
     @Override
     public void showResult(List<BusInfo> busInfos) {
         int totalResult = busInfos.size();
-        setResultText(String.format("共搜索出 %d 条结果", totalResult));
+        String searchResultFormat = getString(R.string.search_result);
+        setResultText(String.format(searchResultFormat, totalResult));
         mAdapter.setList(busInfos);
     }
 
     @Override
     public void onSearchError() {
-        showMsg("服务器有点抽风");
+        showMsg(getString(R.string.server_error));
+    }
+
+    interface OnItemClickListener {
+        void onItemSelected(String busId, String busName);
     }
 
     private static class MyAdapter extends BaseRecyclerViewAdapter<BusInfo, BaseRecyclerViewHolder> {
-        private Context mContext;
-        public MyAdapter(Context context) {
-            mContext = context;
+        private OnItemClickListener mListener;
+        public MyAdapter(OnItemClickListener listener) {
+            mListener = listener;
         }
 
         @Override
@@ -123,7 +131,10 @@ public class SearchFragment extends BaseFragment
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BusListActivity.show((SearchActivity)mContext, busId, busName);
+                    if (mListener == null)
+                        return;
+
+                    mListener.onItemSelected(busId, busName);
                 }
             });
         }

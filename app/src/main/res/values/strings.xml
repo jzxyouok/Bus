@@ -5,4 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="server_error">服务器有点抽风</string>
+    <string name="search_result">共搜索出 %1$d 条结果</string>
+    <string name="no_result">没有找到数据</string>
 </resources>
