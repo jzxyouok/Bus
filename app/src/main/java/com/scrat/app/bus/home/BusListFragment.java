@@ -27,6 +27,7 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
     private ImageView mOrderIv;
     private ImageView mBackIv;
     private ImageView mSearchIv;
+    private ImageView mRefreshIv;
 
     private static final String sKeyId = "bus_id";
     private static final String sKeyBusName = "bus_name";
@@ -61,6 +62,9 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
         mBackIv.setOnClickListener(this);
         mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
         mSearchIv.setOnClickListener(this);
+        mRefreshIv = (ImageView) root.findViewById(R.id.iv_refresh);
+        mRefreshIv.getBackground().setAlpha(100);
+        mRefreshIv.setOnClickListener(this);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.rv_list);
         final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(manager);
@@ -101,6 +105,10 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
         if (v == mOrderIv) {
             mPresenter.changeOrder();
             return;
+        }
+
+        if (v == mRefreshIv) {
+            mPresenter.init();
         }
 
     }
