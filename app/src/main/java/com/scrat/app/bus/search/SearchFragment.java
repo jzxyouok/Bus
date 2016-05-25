@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,8 +51,8 @@ public class SearchFragment extends BaseFragment
         View root = inflater.inflate(R.layout.frg_search, container, false);
         mResultTv = (TextView) root.findViewById(R.id.tv_result);
         mBackIv = (ImageView) root.findViewById(R.id.iv_back);
-        mSearchContentEt = (EditText) root.findViewById(R.id.et_search);
         mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
+        mSearchContentEt = (EditText) root.findViewById(R.id.et_search);
         RecyclerView resultListRv = (RecyclerView) root.findViewById(R.id.rv_list);
         final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         resultListRv.setLayoutManager(manager);
@@ -66,8 +68,25 @@ public class SearchFragment extends BaseFragment
         mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
         mPresenter = new SearchPresenter(this);
+        mSearchContentEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
         return root;
+    }
+
+    private void search() {
+        ActivityUtils.hideKeyboard(getActivity());
+        String content = mSearchContentEt.getText().toString();
+        mPresenter.search(content);
     }
 
     @Override
@@ -84,9 +103,7 @@ public class SearchFragment extends BaseFragment
         }
 
         if (v == mSearchIv) {
-            ActivityUtils.hideKeyboard(getActivity());
-            String content = mSearchContentEt.getText().toString();
-            mPresenter.search(content);
+            search();
         }
     }
 

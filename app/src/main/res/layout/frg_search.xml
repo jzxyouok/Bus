@@ -25,7 +25,8 @@
             android:layout_marginLeft="2dp"
             android:layout_weight="8"
             android:background="@null"
-            android:hint=" 公交路线"
+            android:hint="@string/search_text"
+            android:imeOptions="actionSearch"
             android:singleLine="true" />
 
         <ImageView
