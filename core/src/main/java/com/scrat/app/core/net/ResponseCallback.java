@@ -33,7 +33,10 @@ public abstract class ResponseCallback<T> implements Callback {
     public void onResponse(final Call call, final Response response) throws IOException {
         L.d("code %s", response.code());
 
-        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+        if (!response.isSuccessful()) {
+            onRequestFailure(new IOException("Unexpected code " + response));
+            return;
+        }
 
         T t;
         try {
