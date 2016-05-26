@@ -11,9 +11,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
-        android:name="com.scrat.app.est.permission.MIPUSH_RECEIVE"
+        android:name="com.scrat.app.bus.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.scrat.app.est.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="com.scrat.app.bus.permission.MIPUSH_RECEIVE" />
     <!--MiPush end-->
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -42,12 +42,57 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!--友盟 begin-->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5746b682e0f55afd6c000018"/>
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="gp" />
+        <!--友盟 end-->
+
+        <!--MiPush begin-->
+        <service
+            android:enabled="true"
+            android:process=":pushservice"
+            android:name="com.xiaomi.push.service.XMPushService"/>
+        <service
+            android:enabled="true"
+            android:exported="true"
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler" />
+        <service android:enabled="true"
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService" />
+        <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入-->
+        <receiver
+            android:exported="true"
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:exported="false"
+            android:process=":pushservice"
+            android:name="com.xiaomi.push.service.receivers.PingReceiver" >
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".push.MiMessageReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <!--MiPush end-->
     </application>
 
 </manifest>

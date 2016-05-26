@@ -1,7 +1,10 @@
 package com.scrat.app.core.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.provider.Settings;
 import android.text.TextUtils;
 
 import java.io.BufferedOutputStream;
@@ -81,6 +84,24 @@ public class Utils {
             e.printStackTrace();
         } finally {
             IoUtil.close(bos);
+        }
+    }
+
+    public static boolean isX86CPU() {
+        return "x86".equals(android.os.Build.CPU_ABI);
+    }
+
+    public static boolean isPad(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    public static String getAndroidID(Context context) {
+        try {
+            ContentResolver cr = context.getContentResolver();
+            return Settings.Secure.getString(cr, Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            return "";
         }
     }
 }

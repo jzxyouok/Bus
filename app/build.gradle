@@ -26,6 +26,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':core')
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('libs/MiPush_SDK_Client_2_2_21.jar')
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
