@@ -73,51 +73,51 @@ public class MiMessageReceiver extends PushMessageReceiver {
 //        String cmdArg1 = ((arguments != null && arguments.size() > 0) ? arguments.get(0) : null);
 //        String cmdArg2 = ((arguments != null && arguments.size() > 1) ? arguments.get(1) : null);
 //        String log = "";
-        if (MiPushClient.COMMAND_REGISTER.equals(command)) {
+//        if (MiPushClient.COMMAND_REGISTER.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mRegId = cmdArg1;
 //                log = context.getString(R.string.register_success);
 //            } else {
 //                log = context.getString(R.string.register_fail);
 //            }
-        } else if (MiPushClient.COMMAND_SET_ALIAS.equals(command)) {
-            if (message.getResultCode() != ErrorCode.SUCCESS) {
-            }
-        } else if (MiPushClient.COMMAND_UNSET_ALIAS.equals(command)) {
+//        } else if (MiPushClient.COMMAND_SET_ALIAS.equals(command)) {
+//            if (message.getResultCode() != ErrorCode.SUCCESS) {
+//            }
+//        } else if (MiPushClient.COMMAND_UNSET_ALIAS.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mAlias = cmdArg1;
 //                log = context.getString(R.string.unset_alias_success, mAlias);
 //            } else {
 //                log = context.getString(R.string.unset_alias_fail, message.getReason());
 //            }
-        } else if (MiPushClient.COMMAND_SET_ACCOUNT.equals(command)) {
+//        } else if (MiPushClient.COMMAND_SET_ACCOUNT.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mAccount = cmdArg1;
 //                log = context.getString(R.string.set_account_success, mAccount);
 //            } else {
 //                log = context.getString(R.string.set_account_fail, message.getReason());
 //            }
-        } else if (MiPushClient.COMMAND_UNSET_ACCOUNT.equals(command)) {
+//        } else if (MiPushClient.COMMAND_UNSET_ACCOUNT.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mAccount = cmdArg1;
 //                log = context.getString(R.string.unset_account_success, mAccount);
 //            } else {
 //                log = context.getString(R.string.unset_account_fail, message.getReason());
 //            }
-        } else if (MiPushClient.COMMAND_SUBSCRIBE_TOPIC.equals(command)) {
+//        } else if (MiPushClient.COMMAND_SUBSCRIBE_TOPIC.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mTopic = cmdArg1;
 //                log = context.getString(R.string.subscribe_topic_success, mTopic);
 //            } else {
 //                log = context.getString(R.string.subscribe_topic_fail, message.getReason());
 //            }
-        } else if (MiPushClient.COMMAND_UNSUBSCRIBE_TOPIC.equals(command)) {
+//        } else if (MiPushClient.COMMAND_UNSUBSCRIBE_TOPIC.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                log = context.getString(R.string.unsubscribe_topic_success, mTopic);
 //            } else {
 //                log = context.getString(R.string.unsubscribe_topic_fail, message.getReason());
 //            }
-        } else if (MiPushClient.COMMAND_SET_ACCEPT_TIME.equals(command)) {
+//        } else if (MiPushClient.COMMAND_SET_ACCEPT_TIME.equals(command)) {
 //            if (message.getResultCode() == ErrorCode.SUCCESS) {
 //                mStartTime = cmdArg1;
 //                mEndTime = cmdArg2;
@@ -125,9 +125,9 @@ public class MiMessageReceiver extends PushMessageReceiver {
 //            } else {
 //                log = context.getString(R.string.set_accept_time_fail, message.getReason());
 //            }
-        } else {
-//            log = message.getReason();
-        }
+//        } else {
+//            log = mssage.getReason();
+//        }
 
     }
 
