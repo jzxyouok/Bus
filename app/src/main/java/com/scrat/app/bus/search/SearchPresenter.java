@@ -1,5 +1,7 @@
 package com.scrat.app.bus.search;
 
+import android.text.TextUtils;
+
 import com.google.gson.reflect.TypeToken;
 import com.scrat.app.bus.model.BusInfo;
 import com.scrat.app.bus.net.NetApi;
@@ -23,14 +25,24 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void search(String content) {
-        if (!NetUtil.isNetworkAvailable()) {
-            mView.onNoNetworkError();
+        if (TextUtils.isEmpty(content)) {
+            mView.onContentEmptyError();
+            mView.hideLoading();
             return;
         }
+
+        if (!NetUtil.isNetworkAvailable()) {
+            mView.onNoNetworkError();
+            mView.hideLoading();
+            return;
+        }
+
+        mView.showLoading();
 
         NetApi.getBusInfo(content, new ResponseCallback<List<BusInfo>>() {
             @Override
             protected void onRequestSuccess(List<BusInfo> busInfos) {
+                mView.hideLoading();
                 if (Utils.isEmpty(busInfos)) {
                     mView.showNoResult();
                     return;
@@ -48,6 +60,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
             @Override
             protected void onRequestFailure(Exception e) {
+                mView.hideLoading();
                 e.printStackTrace();
                 mView.onSearchError();
             }

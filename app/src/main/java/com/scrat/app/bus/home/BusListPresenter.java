@@ -36,6 +36,7 @@ public class BusListPresenter implements BusListContract.Presenter {
     public void init() {
         if (!NetUtil.isNetworkAvailable()) {
             mView.onNoNetworkError();
+            mView.hideLoading();
             return;
         }
 
@@ -61,9 +62,17 @@ public class BusListPresenter implements BusListContract.Presenter {
     }
 
     private void getBusStopName(final OnLoadBusStopNameListener listener) {
+        if (!NetUtil.isNetworkAvailable()) {
+            mView.onNoNetworkError();
+            mView.hideLoading();
+            return;
+        }
+
+        mView.showLoading();
         NetApi.getBusStopName(mBusId, mDefaultOrder, new ResponseCallback<GetBusStopInfoResponse>() {
             @Override
             protected void onRequestSuccess(GetBusStopInfoResponse getBusStopInfoResponse) {
+                mView.hideLoading();
                 L.e("%s", getBusStopInfoResponse);
                 List<BusStopInfo> busStopInfoList = getBusStopInfoResponse.getBusStopInfoList();
                 if (listener == null)
@@ -81,15 +90,24 @@ public class BusListPresenter implements BusListContract.Presenter {
             @Override
             protected void onRequestFailure(Exception e) {
                 e.printStackTrace();
+                mView.hideLoading();
                 mView.onLoadDataError();
             }
         });
     }
 
     private void loadLocation() {
+        if (!NetUtil.isNetworkAvailable()) {
+            mView.onNoNetworkError();
+            mView.hideLoading();
+            return;
+        }
+
+        mView.showLoading();
         NetApi.getBusLocation(mBusId, mDefaultOrder, new ResponseCallback<GetLocationResponse>() {
             @Override
             protected void onRequestSuccess(GetLocationResponse response) {
+                mView.hideLoading();
                 List<LocationInfoItem> itemList = response.getLocationList();
                 if (Utils.isEmpty(itemList))
                     return;
@@ -118,6 +136,7 @@ public class BusListPresenter implements BusListContract.Presenter {
             @Override
             protected void onRequestFailure(Exception e) {
                 e.printStackTrace();
+                mView.hideLoading();
                 mView.onLoadDataError();
             }
         });

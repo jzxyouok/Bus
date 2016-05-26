@@ -17,5 +17,6 @@ public interface SearchContract {
         void showNoResult();
         void showResult(List<BusInfo> busInfos);
         void onSearchError();
+        void onContentEmptyError();
     }
 }
