@@ -130,6 +130,7 @@ public class MiMessageReceiver extends PushMessageReceiver {
 //        }
 
     }
+    //这里是注释，看是否上传成功
 
     /**
      * 接受客户端向服务器发送注册命令消息后返回的响应。
