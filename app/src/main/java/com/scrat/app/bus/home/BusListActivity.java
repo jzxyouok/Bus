@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.scrat.app.bus.R;
+import com.scrat.app.bus.common.BaseActivity;
 import com.scrat.app.core.utils.ActivityUtils;
 
 /**
  * Created by yixuanxuan on 16/5/20.
  */
-public class BusListActivity extends AppCompatActivity {
+public class BusListActivity extends BaseActivity {
     private BusListFragment mFragment;
 
     private static final String sExtraKeyBusId = "bus_id";

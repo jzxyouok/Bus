@@ -36,7 +36,6 @@ public class SearchFragment extends BaseFragment
 
     private SearchContract.Presenter mPresenter;
 
-    private ImageView mBackIv;
     private ImageView mSearchIv;
     private EditText mSearchContentEt;
     private MyAdapter mAdapter;
@@ -50,7 +49,6 @@ public class SearchFragment extends BaseFragment
             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frg_search, container, false);
         mResultTv = (TextView) root.findViewById(R.id.tv_result);
-        mBackIv = (ImageView) root.findViewById(R.id.iv_back);
         mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
         mSearchContentEt = (EditText) root.findViewById(R.id.et_search);
         RecyclerView resultListRv = (RecyclerView) root.findViewById(R.id.rv_list);
@@ -65,7 +63,6 @@ public class SearchFragment extends BaseFragment
         });
         resultListRv.setAdapter(mAdapter);
 
-        mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
         mPresenter = new SearchPresenter(this);
         mSearchContentEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -97,10 +94,6 @@ public class SearchFragment extends BaseFragment
 
     @Override
     public void onClick(View v) {
-        if (v == mBackIv) {
-            getActivity().finish();
-            return;
-        }
 
         if (v == mSearchIv) {
             search();

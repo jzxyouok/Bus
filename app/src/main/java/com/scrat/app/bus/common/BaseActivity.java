@@ -4,11 +4,22 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.scrat.app.core.common.BaseView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by yixuanxuan on 16/5/12.
  */
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     public void showLoading() {

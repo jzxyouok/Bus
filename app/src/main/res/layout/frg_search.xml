@@ -9,13 +9,14 @@
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_back"
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_back_black" />
+            android:text="广州" />
 
         <EditText
             android:id="@+id/et_search"
