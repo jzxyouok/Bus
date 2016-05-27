@@ -107,11 +107,31 @@ public class BusListFragment extends BaseFragment implements BusListContract.Vie
     @Override
     public void showBusStop(List<BusStopInfo> list) {
         mAdapter.setList(list);
+        String from;
+        String to;
+        if (list.size() == 0) {
+            String unknown = getString(R.string.unknown);
+            from = unknown;
+            to = unknown;
+        } else {
+            from = list.get(0).getBusStopName();
+            to = list.get(list.size()-1).getBusStopName();
+        }
+        showBusLine(from, to);
     }
 
     @Override
     public void onLoadDataError() {
-        showMsg("获取数据失败");
+        showMsg(getString(R.string.server_error));
+    }
+
+    private void showBusLine(String from, String to) {
+        if (getView() == null)
+            return;
+
+        TextView busLineTv = (TextView) getView().findViewById(R.id.tv_bus_line);;
+        String line = String.format("%s ---> %s", from, to);
+        busLineTv.setText(line);
     }
 
     @Override

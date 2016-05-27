@@ -6,7 +6,6 @@ import android.content.Context;
 
 import com.scrat.app.core.CommonContext;
 import com.scrat.app.core.utils.Utils;
-import com.squareup.leakcanary.LeakCanary;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class BusApp extends Application {
             String alias = Utils.getAndroidID(mContext);
             MiPushClient.setAlias(mContext, alias, null);
         }
-        LeakCanary.install(this);
+        com.squareup.leakcanary.LeakCanary.install(this);
     }
 
     private boolean shouldInit() {

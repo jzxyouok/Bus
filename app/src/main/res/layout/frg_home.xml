@@ -56,6 +56,14 @@
             android:layout_height="1px"
             android:background="?android:attr/listDivider" />
 
+        <TextView
+            android:id="@+id/tv_bus_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightgray"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"/>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
