@@ -1,4 +1,4 @@
-package com.scrat.app.bus.search;
+package com.scrat.app.bus.module.search;
 
 import android.text.TextUtils;
 

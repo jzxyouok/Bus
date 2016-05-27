@@ -1,4 +1,4 @@
-package com.scrat.app.bus.search;
+package com.scrat.app.bus.module.search;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.scrat.app.bus.R;
 import com.scrat.app.bus.common.BaseFragment;
-import com.scrat.app.bus.home.BusListActivity;
+import com.scrat.app.bus.module.bus.BusListActivity;
 import com.scrat.app.bus.model.BusInfo;
 import com.scrat.app.core.common.BaseRecyclerViewAdapter;
 import com.scrat.app.core.common.BaseRecyclerViewHolder;

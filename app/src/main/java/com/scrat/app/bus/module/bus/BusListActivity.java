@@ -1,4 +1,4 @@
-package com.scrat.app.bus.home;
+package com.scrat.app.bus.module.bus;
 
 import android.app.Activity;
 import android.content.Intent;

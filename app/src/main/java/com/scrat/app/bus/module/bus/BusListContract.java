@@ -1,4 +1,4 @@
-package com.scrat.app.bus.home;
+package com.scrat.app.bus.module.bus;
 
 import com.scrat.app.bus.model.BusStopInfo;
 import com.scrat.app.core.common.BaseView;

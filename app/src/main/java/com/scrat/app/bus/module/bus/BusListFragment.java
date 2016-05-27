@@ -1,4 +1,4 @@
-package com.scrat.app.bus.home;
+package com.scrat.app.bus.module.bus;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

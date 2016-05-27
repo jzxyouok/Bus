@@ -1,4 +1,4 @@
-package com.scrat.app.bus.search;
+package com.scrat.app.bus.module.search;
 
 import com.scrat.app.bus.model.BusInfo;
 import com.scrat.app.core.common.BaseView;
