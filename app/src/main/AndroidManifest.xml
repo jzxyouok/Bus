@@ -49,7 +49,7 @@
             android:value="5746b682e0f55afd6c000018" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="gp" />
+            android:value="${CHANNEL_NAME}" />
         <!--友盟 end-->
 
         <!--MiPush begin-->
