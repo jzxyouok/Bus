@@ -23,6 +23,7 @@ import com.scrat.app.core.common.BaseRecyclerViewAdapter;
 import com.scrat.app.core.common.BaseRecyclerViewHolder;
 import com.scrat.app.core.utils.ActivityUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -40,7 +41,6 @@ public class SearchFragment extends BaseFragment
     private ImageView mSearchIv;
     private EditText mSearchContentEt;
     private MyAdapter mAdapter;
-    private TextView mResultTv;
 
     @Nullable
     @Override
@@ -49,7 +49,6 @@ public class SearchFragment extends BaseFragment
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frg_search, container, false);
-        mResultTv = (TextView) root.findViewById(R.id.tv_result);
         mSearchIv = (ImageView) root.findViewById(R.id.iv_search);
         mSearchContentEt = (EditText) root.findViewById(R.id.et_search);
         RecyclerView resultListRv = (RecyclerView) root.findViewById(R.id.rv_list);
@@ -120,8 +119,12 @@ public class SearchFragment extends BaseFragment
     }
 
     private void setResultText(String content) {
-        mResultTv.setVisibility(View.VISIBLE);
-        mResultTv.setText(content);
+        if (getView() == null)
+            return;
+
+        TextView resultTv = (TextView) getView().findViewById(R.id.tv_result);
+        resultTv.setVisibility(View.VISIBLE);
+        resultTv.setText(content);
     }
 
     @Override
@@ -154,7 +157,7 @@ public class SearchFragment extends BaseFragment
     private static class MyAdapter extends BaseRecyclerViewAdapter<BusInfo, BaseRecyclerViewHolder> {
         private OnItemClickListener mListener;
         public MyAdapter(OnItemClickListener listener) {
-            mListener = listener;
+            mListener = new WeakReference<>(listener).get();
         }
 
         @Override
