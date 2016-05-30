@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.scrat.app.bus.R;
 import com.scrat.app.bus.common.BaseFragment;
-import com.scrat.app.bus.module.bus.BusListActivity;
 import com.scrat.app.bus.model.BusInfo;
+import com.scrat.app.bus.module.bus.BusListActivity;
 import com.scrat.app.core.common.BaseRecyclerViewAdapter;
 import com.scrat.app.core.common.BaseRecyclerViewHolder;
 import com.scrat.app.core.utils.ActivityUtils;
@@ -41,6 +41,7 @@ public class SearchFragment extends BaseFragment
     private ImageView mSearchIv;
     private EditText mSearchContentEt;
     private MyAdapter mAdapter;
+
 
     @Nullable
     @Override
@@ -212,4 +213,5 @@ public class SearchFragment extends BaseFragment
             }
         });
     }
+
 }

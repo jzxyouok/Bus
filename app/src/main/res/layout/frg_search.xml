@@ -14,22 +14,12 @@
             android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal">
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="@string/guang_zhou"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="8"
                 android:background="@null"
                 android:hint="@string/search_text"
