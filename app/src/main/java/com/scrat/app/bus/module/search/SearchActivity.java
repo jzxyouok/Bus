@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.scrat.app.bus.R;
 import com.scrat.app.bus.common.BaseActivity;
+import com.scrat.app.bus.module.yct.YctCardDetailActivity;
 import com.scrat.app.core.utils.ActivityUtils;
 
 /**
@@ -77,6 +78,9 @@ public class SearchActivity extends BaseActivity implements NavigationView.OnNav
 
         } else if (id == R.id.nav_send) {
             sendFeedback();
+        } else if (id == R.id.nav_yct) {
+            Intent i = new Intent(this, YctCardDetailActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

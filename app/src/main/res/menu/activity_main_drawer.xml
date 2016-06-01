@@ -6,10 +6,10 @@
             android:id="@+id/nav_bus"
             android:icon="@drawable/ic_menu_bus"
             android:title="实时公交" />
-        <!--<item-->
-            <!--android:id="@+id/nav_gallery"-->
-            <!--android:icon="@drawable/ic_menu_gallery"-->
-            <!--android:title="Gallery" />-->
+        <item
+            android:id="@+id/nav_yct"
+            android:icon="@drawable/ic_yct"
+            android:title="羊城通" />
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
