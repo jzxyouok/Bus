@@ -134,6 +134,7 @@ public class YctCardDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void showData(NfcCardInfo cardInfo) {
+        findViewById(R.id.tv_nfc_note).setVisibility(View.GONE);
         mCardIdTv.setVisibility(View.VISIBLE);
         mCardIdTv.setText(String.valueOf(cardInfo.getCardId()));
         mAdapter.setList(cardInfo.getLogs());
