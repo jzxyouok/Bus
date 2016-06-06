@@ -42,7 +42,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:text="查看余额"
+        android:text="@string/yct_balance"
         android:textColor="@color/black" />
 
     <FrameLayout
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:text="请把羊城通贴近手机背面" />
+            android:text="@string/nfc_note" />
     </FrameLayout>
 
 

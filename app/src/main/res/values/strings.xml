@@ -13,4 +13,13 @@
     <string name="search_content_required">请输入搜索内容</string>
     <string name="unknown">未知</string>
     <string name="guang_zhou">广州</string>
+    <string name="yct">羊城通</string>
+    <string name="realtime_bus">实时公交</string>
+    <string name="more">更多</string>
+    <string name="feedback">反馈</string>
+    <string name="nav_header_subtitle">实时公交查询工具</string>
+    <string name="nfc_note">请把羊城通贴近手机背面</string>
+    <string name="yct_number">&#160;羊城通号码</string>
+    <string name="yct_balance">查看余额</string>
+
 </resources>

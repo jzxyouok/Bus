@@ -5,31 +5,19 @@
         <item
             android:id="@+id/nav_bus"
             android:icon="@drawable/ic_menu_bus"
-            android:title="实时公交" />
+            android:title="@string/realtime_bus" />
         <item
             android:id="@+id/nav_yct"
             android:icon="@drawable/ic_yct"
-            android:title="羊城通" />
-        <!--<item-->
-            <!--android:id="@+id/nav_slideshow"-->
-            <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="Slideshow" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
+            android:title="@string/yct" />
     </group>
 
-    <item android:title="更多">
+    <item android:title="@string/more">
         <menu>
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="反馈" />
+                android:title="@string/feedback" />
         </menu>
     </item>
 

@@ -25,7 +25,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="8"
             android:background="@null"
-            android:hint=" 羊城通号码"
+            android:hint="@string/yct_number"
             android:singleLine="true" />
 
         <ImageView
