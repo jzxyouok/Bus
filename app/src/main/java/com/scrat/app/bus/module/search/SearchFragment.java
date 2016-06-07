@@ -131,6 +131,7 @@ public class SearchFragment extends BaseFragment
     @Override
     public void showNoResult() {
         setResultText(getString(R.string.no_result));
+        mAdapter.clear();
     }
 
     @Override

@@ -27,6 +27,11 @@ public abstract class BaseRecyclerViewAdapter<Item, Holder extends BaseRecyclerV
         return mList != null ? mList.size() : 0;
     }
 
+    public void clear() {
+        mList.clear();
+        notifyDataSetChanged();
+    }
+
     public void setList(List<Item> list) {
         mList = list;
         notifyDataSetChanged();
